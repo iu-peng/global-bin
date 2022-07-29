@@ -1,0 +1,25 @@
+{
+  "name": "chrome",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "q": "bin/global.js",
+    "chrome": "bin/index.js",
+    "mark": "bin/mark/markdown.mjs"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "inquirer": "^9.0.2",
+    "zx": "^7.0.7"
+  }
+}
