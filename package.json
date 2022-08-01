@@ -1,16 +1,12 @@
 {
-  "name": "chrome",
+  "name": "q",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "q": "bin/global.js",
-    "chrome": "bin/index.js",
-    "mark": "bin/mark/markdown.mjs"
-  },
+  "bin": "./src/global.js",
   "type": "module",
   "keywords": [],
   "author": "",
@@ -19,6 +15,8 @@
     "axios": "^0.27.2"
   },
   "devDependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.4.0",
     "inquirer": "^9.0.2",
     "zx": "^7.0.7"
   }
