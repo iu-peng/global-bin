@@ -1,5 +1,6 @@
 import path from "path";
-import { $, fs } from "zx";
+import fs from "fs";
+// import { $, fs } from "zx";
 import {
   successlog,
   errlogExit,
@@ -11,8 +12,6 @@ import {
 
 // import workJson from "./workspace.json" assert { type: "json" };
 
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
 const workJson = require("./workspace.json");
 
 /**

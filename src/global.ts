@@ -2,12 +2,12 @@
 
 import { program } from "commander";
 
-import { vsCode } from "./code/vscode.js";
+import { vsCode } from "./code/vscode";
 import { errlog } from "./utils/utils.js";
 import { choiceEntry } from "./select/index.js";
 
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
 const packageJson = require("../package.json");
 
 program
