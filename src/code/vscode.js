@@ -5,6 +5,7 @@ import {
   errlogExit,
   infologExit,
   inquirerQuestion,
+  inquirerAddCloseoption,
   toPromise,
 } from "../utils/utils.js";
 
@@ -23,6 +24,7 @@ const workJson = require("./workspace.json");
  * @param {string} projectKey 打开的项目列表的key
  */
 export async function vsCode(projectKey) {
+  if (projectKey === "") return infologExit("别怂，找不到就退出");
   // 没有指定项目 就通过选择进入
   if (!projectKey) {
     const choiceResult = await inquirerChoice();
@@ -32,8 +34,9 @@ export async function vsCode(projectKey) {
 
   // 通过指定的json数据中获取对应项目信息
   const projectData = await getProjectData(projectKey);
-  if (!projectData) {
-    errlogExit("未找到该项目");
+  // 找到了目标对象 ||  如果是数组 & 数组有值
+  if (!projectData || (Array.isArray(projectData) && !projectData.length)) {
+    errlogExit("未找到该项目，你再好好想想，输的对吗！");
   }
 
   // 模糊结果
@@ -73,7 +76,7 @@ async function getProjectData(key) {
       if (target.key === key) {
         return target;
       }
-      if (target.key?.includes(key)) {
+      if (target.key?.includes(key) || projectKey.includes(key)) {
         blurTargets.push(target);
       }
     }
@@ -89,6 +92,8 @@ async function inquirerChoice() {
     type: "list",
     name: "project",
     message: "选择需要打开的项目",
+    loop: true,
+    pageSize: 50,
   };
 
   const choices = [];
@@ -104,7 +109,7 @@ async function inquirerChoice() {
       });
     }
   }
-  option.choices = choices;
+  option.choices = inquirerAddCloseoption(choices);
 
   return inquirerQuestion([option]);
 }
@@ -114,13 +119,15 @@ async function repeatChoice(data) {
     type: "list",
     name: "project",
     message: "你是要打开哪个项目",
+    loop: true,
+    pageSize: 50,
   };
 
   const choices = data.map((i) => ({
     name: i.key,
     value: i.key,
   }));
-  option.choices = choices;
+  option.choices = inquirerAddCloseoption(choices);
 
   return inquirerQuestion([option]);
 }

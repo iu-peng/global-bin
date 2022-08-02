@@ -55,3 +55,15 @@ export async function inquirerQuestion(options) {
   const inquirerResult = await inquirer.prompt(options);
   return inquirerResult;
 }
+
+export function inquirerAddCloseoption(option = []) {
+  option.push({
+    name: "❌ 关闭",
+    value: "",
+  });
+  option.forEach((i, d) =>
+    option.splice(d * 2 + 0, 0, new inquirer.Separator("〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️"))
+  );
+
+  return option;
+}
