@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,17 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.vsCode = void 0;
-const path_1 = __importDefault(require("path"));
-const fs_1 = __importDefault(require("fs"));
+import path from "path";
+import fs from "fs";
 // import { $, fs } from "zx";
-const utils_js_1 = require("../utils/utils.js");
+import { successlog, errlogExit, infologExit, inquirerQuestion, inquirerAddCloseoption, toPromise, } from "../utils/utils.js";
 // import workJson from "./workspace.json" assert { type: "json" };
-const workJson = require("./workspace.json");
+// const workJson = require("./workspace.json");
+import workJson from "./workspace.json" assert { type: "json" };
 /**
  * vsCode 通过 workspace.json 中指定的 key 打开项目
  * 功能：
@@ -27,10 +22,10 @@ const workJson = require("./workspace.json");
  * 3. q code 提供选择项目，然后打开
  * @param {string} projectKey 打开的项目列表的key
  */
-function vsCode(projectKey) {
+export function vsCode(projectKey) {
     return __awaiter(this, void 0, void 0, function* () {
         if (projectKey === "")
-            return (0, utils_js_1.infologExit)("别怂，找不到就退出");
+            return infologExit("别怂，找不到就退出");
         // 没有指定项目 就通过选择进入
         if (!projectKey) {
             const choiceResult = yield inquirerChoice();
@@ -41,7 +36,7 @@ function vsCode(projectKey) {
         const projectData = yield getProjectData(projectKey);
         // 找到了目标对象 ||  如果是数组 & 数组有值
         if (!projectData || (Array.isArray(projectData) && !projectData.length)) {
-            (0, utils_js_1.errlogExit)("未找到该项目，你再好好想想，输的对吗！");
+            errlogExit("未找到该项目，你再好好想想，输的对吗！");
         }
         // 模糊结果
         if (projectData.length) {
@@ -53,18 +48,17 @@ function vsCode(projectKey) {
         const targetHasPath = projectData.path;
         if (targetHasPath) {
             // await $`code ${targetHasPath}`;
-            (0, utils_js_1.successlog)(`${projectKey} 打开成功`);
+            successlog(`${projectKey} 打开成功`);
         }
         else {
             // 项目在同一个文件夹下的公共目录位置
             const workDir = workJson.commonPath;
-            const projectDir = path_1.default.resolve(workDir, projectKey);
+            const projectDir = path.resolve(workDir, projectKey);
             // await $`code ${projectDir}`;
-            (0, utils_js_1.successlog)(`${projectKey} 打开成功`);
+            successlog(`${projectKey} 打开成功`);
         }
     });
 }
-exports.vsCode = vsCode;
 // 获取json数据中对应项目的信息
 function getProjectData(key) {
     var _a;
@@ -109,8 +103,8 @@ function inquirerChoice() {
                 });
             }
         }
-        option.choices = (0, utils_js_1.inquirerAddCloseoption)(choices);
-        return (0, utils_js_1.inquirerQuestion)([option]);
+        option.choices = inquirerAddCloseoption(choices);
+        return inquirerQuestion([option]);
     });
 }
 // 提示 - 选择项目
@@ -127,8 +121,8 @@ function repeatChoice(data) {
             name: i.key,
             value: i.key,
         }));
-        option.choices = (0, utils_js_1.inquirerAddCloseoption)(choices);
-        return (0, utils_js_1.inquirerQuestion)([option]);
+        option.choices = inquirerAddCloseoption(choices);
+        return inquirerQuestion([option]);
     });
 }
 /**
@@ -138,18 +132,18 @@ function getCommonPathProjects() {
     return __awaiter(this, void 0, void 0, function* () {
         const projectDatas = {};
         const workDir = workJson.commonPath;
-        const dirDatas = yield (0, utils_js_1.toPromise)(fs_1.default.readdir)(workDir);
+        const dirDatas = yield toPromise(fs.readdir)(workDir);
         // 异步问题 此处可以用 for of等待
         for (const item of dirDatas.data) {
-            const statInfo = yield (0, utils_js_1.toPromise)(fs_1.default.stat)(path_1.default.resolve(workDir, item));
+            const statInfo = yield toPromise(fs.stat)(path.resolve(workDir, item));
             // 是否是文件夹格式
             if (statInfo.result && statInfo.data.isDirectory()) {
-                const hasPackageJson = yield (0, utils_js_1.toPromise)(fs_1.default.access)(path_1.default.resolve(workDir, item, "package.json"));
+                const hasPackageJson = yield toPromise(fs.access)(path.resolve(workDir, item, "package.json"));
                 // 文件夹下是否有package.json文件
                 if (hasPackageJson.result) {
                     projectDatas[item] = {
                         key: item,
-                        path: path_1.default.resolve(workDir, item),
+                        path: path.resolve(workDir, item),
                     };
                 }
             }

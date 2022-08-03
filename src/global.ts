@@ -2,13 +2,11 @@
 
 import { program } from "commander";
 
-import { vsCode } from "./code/vscode";
+import { vsCode } from "./code/vscode.js";
 import { errlog } from "./utils/utils.js";
 import { choiceEntry } from "./select/index.js";
 
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-const packageJson = require("../package.json");
+import packageJson from "../package.json" assert { type: "json" };
 
 program
   .version(packageJson.version, "-v, -V, --version")

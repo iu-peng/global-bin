@@ -12,7 +12,8 @@ import {
 
 // import workJson from "./workspace.json" assert { type: "json" };
 
-const workJson = require("./workspace.json");
+// const workJson = require("./workspace.json");
+import workJson from "./workspace.json" assert { type: "json" };
 
 /**
  * vsCode 通过 workspace.json 中指定的 key 打开项目

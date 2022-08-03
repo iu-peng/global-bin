@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,13 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.choiceEntry = void 0;
-const zx_1 = require("zx");
-const process_1 = require("process");
-const vscode_js_1 = require("../code/vscode.js");
-const utils_js_1 = require("../utils/utils.js");
-function choiceEntry() {
+import { $, chalk } from "zx";
+import { exit } from "process";
+import { vsCode } from "../code/vscode.js";
+import { inquirerAddCloseoption, inquirerQuestion } from "../utils/utils.js";
+export function choiceEntry() {
     return __awaiter(this, void 0, void 0, function* () {
         let choices = [
             {
@@ -34,7 +31,7 @@ function choiceEntry() {
                 value: "markserve",
             },
         ];
-        choices = (0, utils_js_1.inquirerAddCloseoption)(choices);
+        choices = inquirerAddCloseoption(choices);
         const opitons = [
             {
                 type: "list",
@@ -44,26 +41,25 @@ function choiceEntry() {
                 pageSize: 20,
             },
         ];
-        const inquirerResult = yield (0, utils_js_1.inquirerQuestion)(opitons);
+        const inquirerResult = yield inquirerQuestion(opitons);
         switch (inquirerResult.type) {
             case "vscode":
-                (0, vscode_js_1.vsCode)();
+                vsCode();
                 break;
             case "chrome":
                 // node bin/index.js 与 zx bin/index.js打印的 process.argv不一样，后者会是 node zx bin/index 多了zx
-                yield (0, zx_1.$) `../chrome.js`;
+                yield $ `../chrome.js`;
                 break;
             case "markserve":
-                yield (0, zx_1.$) `../mark/markdown.mjs`;
+                yield $ `../mark/markdown.mjs`;
                 break;
             case "codem":
-                console.log(zx_1.chalk.yellow("vscode 打开笔记!"));
-                yield (0, zx_1.$) `../mark/markdown.mjs code`;
+                console.log(chalk.yellow("vscode 打开笔记!"));
+                yield $ `../mark/markdown.mjs code`;
                 break;
             default:
-                (0, process_1.exit)();
+                exit();
                 break;
         }
     });
 }
-exports.choiceEntry = choiceEntry;

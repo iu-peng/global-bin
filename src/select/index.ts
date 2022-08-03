@@ -1,5 +1,4 @@
 import { $, chalk } from "zx";
-import inquirer from "inquirer";
 import { exit } from "process";
 
 import { vsCode } from "../code/vscode.js";
