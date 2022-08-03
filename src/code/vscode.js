@@ -50,13 +50,13 @@ export async function vsCode(projectKey) {
   const targetHasPath = projectData.path;
 
   if (targetHasPath) {
-    // await $`code ${targetHasPath}`;
+    await $`code ${targetHasPath}`;
     successlog(`${projectKey} 打开成功`);
   } else {
     // 项目在同一个文件夹下的公共目录位置
     const workDir = workJson.commonPath;
     const projectDir = path.resolve(workDir, projectKey);
-    // await $`code ${projectDir}`;
+    await $`code ${projectDir}`;
     successlog(`${projectKey} 打开成功`);
   }
 }

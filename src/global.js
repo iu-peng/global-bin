@@ -20,6 +20,5 @@ program
 if (process.argv.length < 3) {
   choiceEntry();
 } else {
-  // console.log("program", program.opts(), program.args, process.argv);
   program.parse(process.argv);
 }
