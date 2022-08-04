@@ -13,7 +13,7 @@ import {
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const workJson = require("./workspace.json");
+const workJson = require("../workspace.json");
 
 /**
  * vsCode 通过 workspace.json 中指定的 key 打开项目
@@ -93,7 +93,7 @@ async function inquirerChoice() {
     name: "project",
     message: "选择需要打开的项目",
     loop: true,
-    pageSize: 50,
+    pageSize: 10,
   };
 
   const choices = [];
@@ -120,7 +120,7 @@ async function repeatChoice(data) {
     name: "project",
     message: "你是要打开哪个项目",
     loop: true,
-    pageSize: 50,
+    pageSize: 10,
   };
 
   const choices = data.map((i) => ({
