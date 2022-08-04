@@ -1,9 +1,11 @@
 import { $, chalk } from "zx";
-import inquirer from "inquirer";
 import { exit } from "process";
-
+import path from "path";
 import { vsCode } from "../code/vscode.js";
 import { inquirerAddCloseoption, inquirerQuestion } from "../utils/utils.js";
+
+// 当前文件的绝对路径
+const dirname = import.meta.url.replace("file:", "");
 
 export async function choiceEntry() {
   let choices = [
@@ -42,16 +44,16 @@ export async function choiceEntry() {
       break;
     case "chrome":
       // node bin/index.js 与 zx bin/index.js打印的 process.argv不一样，后者会是 node zx bin/index 多了zx
-      await $`../chrome.js`;
+      await $`${path.join(dirname, "../../../chrome.js")}`;
       break;
     case "markserve":
-      await $`../mark/markdown.mjs`;
+      await $`${path.join(dirname, "../../mark/markdown.mjs")}`;
       break;
     case "codem":
       console.log(chalk.yellow("vscode 打开笔记!"));
-      await $`../mark/markdown.mjs code`;
+      await $`${path.join(dirname, "../../mark/markdown.mjs")} code`;
       break;
-    default:
+    default: // wsp-log
       exit();
       break;
   }
