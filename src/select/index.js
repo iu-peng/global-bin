@@ -44,7 +44,7 @@ export async function choiceEntry() {
       break;
     case "chrome":
       // node bin/index.js 与 zx bin/index.js打印的 process.argv不一样，后者会是 node zx bin/index 多了zx
-      await $`${path.join(dirname, "../../../chrome.js")}`;
+      await $`${path.join(dirname, "../../chrome.js")}`;
       break;
     case "markserve":
       await $`${path.join(dirname, "../../mark/markdown.mjs")}`;
