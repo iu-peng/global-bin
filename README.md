@@ -23,6 +23,10 @@ yarn global add @sroc/custom-bin
 
 `code`命令打开的项目是 `src/workspace.json`中定义的`commonPath`下的文件夹（带`package.json`）项目，和同级的项目列表合集。
 
+## 扩展 bin
+
+如果想添加其他全局命令，可以在项目 bin 目录下新建文件，`package.json` 的 `bin` 采用对象形式，value 必须是指向 bin 目录内的文件，否则会不生效
+
 ## 效果如下
 
 ![](https://github.com/iu-peng/global-bin/blob/main/image/image_mi8j3EjWmM.png)
