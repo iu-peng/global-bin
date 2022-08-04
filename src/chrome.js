@@ -3,7 +3,7 @@
 /**
  * 打开调试
  */
-const achild_process = require("child_process");
+import achild_process from "child_process";
 const user = "doge";
 
 console.log("user---", process.argv);

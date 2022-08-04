@@ -1,7 +1,7 @@
 {
   "name": "@sroc/custom-bin",
-  "version": "0.0.5",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Customize the global package command",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,9 @@
     "q": "./src/global.js"
   },
   "type": "module",
-  "keywords": [],
+  "keywords": ["global bin", "custom bin", "package.json bin", "全局命令"],
+  "homepage": "https://github.com/iu-peng/global-bin",
+
   "author": "",
   "license": "ISC",
   "dependencies": {
