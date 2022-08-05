@@ -6,9 +6,11 @@ import { vsCode } from "./code/vscode.js";
 import { errlog } from "./utils/utils.js";
 import { choiceEntry } from "./select/index.js";
 
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const packageJson = require("../package.json");
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
+// const packageJson = require("../package.json");
+
+import packageJson from "../package.json";
 
 program
   .version(packageJson.version, "-v, -V, --version")
